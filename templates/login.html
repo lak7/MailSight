@@ -1,0 +1,84 @@
+{% extends "base.html" %} {% block header %}
+<section class="hero is-fullheight-with-navbar" style="padding: 20px">
+  <div
+    class="hero-body custom-columns"
+    style="align-items: center; justify-content: center"
+  >
+    <div
+      class="column is-6 is-5-fullhd is-offset-1-fullhd"
+      style="padding: 20px; color: #f0f0f0"
+    >
+      <div
+        class="section-header"
+        style="margin-bottom: 100px; text-align: left"
+      >
+        <h1
+          class="title is-spaced is-1"
+          style="margin-bottom: 50px; font-size: 3rem; color: #e0e0e0"
+        >
+          Track Your mails <span class="is-hidden-touch"><br /></span>
+          Like a Beast!
+        </h1>
+        <h2
+          class="subtitle is-4"
+          style="margin-bottom: 30px; font-size: 1.5rem; color: #b0b0b0"
+        >
+          A powerful mail tracker. Monitor your messages effortlessly with
+          MailSight...
+        </h2>
+        <div
+          class="box"
+          id="login-box"
+          style="
+            border-radius: 12px;
+            background-color: #2e2e2e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
+            max-width: 400px;
+          "
+        >
+          <form
+            action="{{ url_for('login') }}"
+            method="post"
+            style="margin-top: 20px"
+          >
+            {{ form.csrf_token }}
+            <div class="field" style="margin-bottom: 20px">
+              <div class="control">
+                {{ form.username(class="input is-rounded",
+                style="background-color: #333; color: #f0f0f0; border: 1px solid
+                #444;", placeholder="Username", maxlength=55, autofocus="") }}
+              </div>
+            </div>
+
+            <div class="field" style="margin-bottom: 20px">
+              <div class="control">
+                {{ form.password(class="input is-rounded",
+                style="background-color: #333; color: #f0f0f0; border: 1px solid
+                #444;", placeholder="Password", maxlength=25) }}
+              </div>
+            </div>
+
+            {{ form.login(class="button is-primary is-large is-fullwidth",
+            style=" background-color: #007bff; border-color: #007bff; color:
+            #ffffff; margin-top: 10px; ") }}
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="column is-6"
+      style="display: flex; align-items: center; justify-content: center"
+    >
+      <div class="section-media">
+        <img
+          id="hero-img"
+          src="{{ url_for('static', filename = 'Beast.png') }}"
+          style="max-width: 100%; height: auto; border-radius: 10px"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock header %}

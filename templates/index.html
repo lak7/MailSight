@@ -1,0 +1,71 @@
+{% extends "base.html" %} {% block main %}
+<div
+  class="columns is-desktop is-vcentered"
+  style="
+    min-height: calc(100vh - 130px);
+    background-color: #121212;
+    color: #e0e0e0;
+  "
+>
+  <div
+    class="column is-narrow"
+    style="display: flex; justify-content: center; align-items: center"
+  >
+    <div
+      class="box"
+      id="generate-tracks-box"
+      style="
+        background-color: #1e1e1e;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        width: 100%;
+        max-width: 500px;
+        margin: 0;
+      "
+    >
+      <div class="container has-text-centered" data-aos="fade">
+        <h2 class="subtitle" style="color: #ffffff; margin-bottom: 20px">
+          Let's Track Your E-Mail!
+        </h2>
+      </div>
+
+      <form action="{{ url_for('index') }}" method="post" style="width: 400px">
+        {{ form.csrf_token }}
+        <div class="container" data-aos="fade">
+          <div class="field" style="margin-bottom: 20px">
+            <label class="label" style="color: #ffffff">Email Subject:</label>
+            <div class="control">
+              {{ form.email_title(class="input is-rounded",
+              style="background-color: #333; color: #e0e0e0; border: 1px solid
+              #555;", placeholder="Internship application", maxlength=80,
+              spellcheck="", autofocus="") }}
+            </div>
+            <p class="help" style="color: #999">
+              Input the subject of your email here
+            </p>
+          </div>
+
+          <div class="field" style="margin-bottom: 20px">
+            <label class="label" style="color: #ffffff">To:</label>
+            <div class="control">
+              {{ form.email_address(class="input is-rounded",
+              style="background-color: #333; color: #e0e0e0; border: 1px solid
+              #555;", placeholder="Mia69@mailhub.com", maxlength=40) }}
+            </div>
+            <p class="help" style="color: #999">
+              Input the recipient's email address here
+            </p>
+          </div>
+
+          <div class="control">
+            {{ form.submit(class="button is-primary is-large is-fullwidth",
+            style="background-color: #007bff; border-color: #007bff; color:
+            #ffffff; margin-top: 20px;") }}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

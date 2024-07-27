@@ -1,0 +1,15 @@
+{
+  "version": "0.2",
+  "ignorePaths": [],
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": [
+    "apphealth",
+    "Dilshan",
+    "dotenv",
+    "pytz",
+    "tracklist"
+  ],
+  "ignoreWords": [],
+  "import": []
+}

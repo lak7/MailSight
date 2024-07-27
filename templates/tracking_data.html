@@ -1,0 +1,126 @@
+{% extends "base.html" %} {% block main %}
+
+<div class="container">
+  <div id="track-cards" class="card" style="margin: 10px">
+    <header class="card-header p-2">
+      <p class="card-header-title">{{ data['MailTitle'] }}</p>
+    </header>
+
+    <div class="card-body" style="padding: 5px 20px 15px">
+      <p>UTM ID:</p>
+      <span id="copyIcon" title="Copy Tracking Link" onclick="copyLink(this)" ;>
+        {{ utm_id }}
+      </span>
+      <div id="inline-notification" class="mt-1 mb-2">
+        ✔ Link copied to clipboard
+      </div>
+      <p class="help">
+        You can manipulate email content to include this tracking pixel.<br />
+        <code
+          >&lt;img src="https://your-app-name.herokuapp.com/track?utm_id={{
+          utm_id }}"/></code
+        >
+      </p>
+
+      <p>Tracking Pixel:</p>
+      <div class="pixel-container">
+        <img
+          id="OIPixel"
+          title="Drag me!"
+          src="{{ url_for('track') ~'?utm_id='~ utm_id }}"
+        />
+        <p class="help">
+          Drag & drop above square to your email - DO NOT copy/paste!<br />
+          If you cannot see such square with a red outline, please
+          whitelist/disable your ad blocker only for this site.
+        </p>
+      </div>
+
+      <p>Added on:</p>
+      <p>{{ data['GeneratedOn'] }}</p>
+
+      <p>Access Count:</p>
+      <span class="tag is-light is-success is-medium"
+        >{{ link_hits|length }}</span
+      >
+    </div>
+  </div>
+
+  <div id="track-cards" class="card is-fullheight" style="margin: 10px">
+    <header class="card-header p-2">
+      <p class="card-header-title">Access Info</p>
+    </header>
+
+    <div class="card-body" style="padding: 15px; min-height: 40vh">
+      {% if link_hits %} {% for item in link_hits %}
+      <div class="block p-2">
+        <p>Timestamp:</p>
+        <p>{{ link_hits[item]['AccessedOn'] }}</p>
+
+        <p>IP:</p>
+        <p>{{ link_hits[item]['IP'] }}</p>
+
+        <p>User-Agent:</p>
+        <p>{{ link_hits[item]['UserAgent'] }}</p>
+        <hr />
+      </div>
+
+      {% endfor %} {% else %}
+
+      <div class="block mt-6 has-text-centered">
+        <span style="font-size: 50px">⚡</span>
+        <p><b>Nothing to display yet...</b></p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .card-body p:nth-child(odd) {
+    margin-top: 10px;
+    margin-bottom: 2px;
+    font-weight: bold;
+  }
+  .card-body .block:hover {
+    background-color: #5f5f5f2f;
+  }
+  #copyIcon {
+    display: inline;
+    color: rgb(81, 176, 46);
+    cursor: copy;
+  }
+  #OIPixel {
+    border: 2px dotted red;
+    height: 40px;
+    width: 40px;
+    cursor: grab;
+  }
+  hr {
+    background-color: rgb(31, 110, 15);
+  }
+  #inline-notification {
+    display: none;
+    max-width: fit-content;
+    border: 1px solid green;
+    padding: 5px;
+    color: rgb(255, 0, 0);
+    border-radius: 5px;
+  }
+</style>
+
+<script>
+  function copyLink(el) {
+    // show inline notification
+    var inlineNotification = document.getElementById("inline-notification");
+    inlineNotification.style.display = "block";
+    setTimeout(() => {
+      inlineNotification.style.display = "none";
+    }, 800);
+    navigator.clipboard.writeText(
+      "{{ url_for('track') }}" + "?utm_id=" + "{{ utm_id }}"
+    );
+  }
+</script>
+
+{% endblock %}
